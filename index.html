@@ -60,7 +60,6 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 					var data = {"authorization_token" : token};
 					var url = "https://a.cms.omniupdate.com/users/list";
 					
-					console.log(token);
 					
 					$("#unpublish").click(function(){
 						// make them confirm they want to unpublish
@@ -71,12 +70,9 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 						$('#prompt').addClass('hidden');
 					});
 
-					$("#confirm").click(function(){					
-						console.log("Click");
+					$("#confirm").click(function(){
 
 						gadget.oucGetCurrentFileInfo().then(function(data){
-							console.log("CurrentFileInfo:")
-							console.log(data);
 
 							var stagingPath = data.stagingPath;
 							
