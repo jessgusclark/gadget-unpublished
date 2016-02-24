@@ -9,9 +9,21 @@
 
 		<style type="text/css">
 			body {
-				margin: 10px;
+				margin: 20px 10px;
 				background-color: transparent;
 			}
+			#prompt {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				padding: 10px 0;
+				background-color: rgba(0,0,0,0.9);
+				color: white;
+				text-align: center;
+			}
+			#prompt > p { font-size: 0.9em; }
 		</style>
 
 		<!-- jQuery IS REQUIRED for gadgetlib.js to work. -->
@@ -50,8 +62,16 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 					
 					console.log(token);
 					
+					$("#unpublish").click(function(){
+						// make them confirm they want to unpublish
+						$('#prompt').removeClass('hidden');
+					});
+					
+					$('#cancel').click(function(e){
+						$('#prompt').addClass('hidden');
+					});
 
-					$("#unpublish").click(function(){					
+					$("#confirm").click(function(){					
 						console.log("Click");
 
 						gadget.oucGetCurrentFileInfo().then(function(data){
@@ -88,7 +108,8 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 							success: function(){
 							
 								$("#unpublish").addClass("disabled");
-								
+								$("#prompt").addClass("hidden");
+
 							}
 
 						});
@@ -128,6 +149,11 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 		<div id="main">
 
 			<a id="unpublish" role="button" class="btn btn-danger" style="width:100%">Unpublish</a>
+			<div id="prompt" class="hidden">
+				<p>Are you sure?</p>
+				<button type="button" id="cancel" class="btn btn-default btn-sm">Cancel</button>
+				<button type="button" id="confirm" class="btn btn-danger btn-sm">Yes, Unpublish</button>
+			</div>
 
 		</div>
 		<!--

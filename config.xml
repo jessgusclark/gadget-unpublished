@@ -31,13 +31,8 @@
     <entry key="columns" private="true">1</entry>
     
     <!-- For sidebar gadgets only. Determines the initial height of the gadget in pixels. -->
-    <entry key="initial_height" private="true">50</entry>
+    <entry key="initial_height" private="true">80</entry>
     
-    <!-- Below is a custom config entry. Custom entries are for the gadget's internal use only.
-         You can add as many custom entries as you wish. The "private" and "overwritable" flags
-         apply to custom entries too. -->
-    <entry key="font_size" label="Font Size" overwritable="true">14px</entry>
-
 </config>
 
 
