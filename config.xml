@@ -5,13 +5,13 @@
     <entry key="title" label="Title">Unpublish File</entry>
     
     <!-- The URL of an icon image. -->
-    <entry key="icon" private="true">icon-bubble-trash</entry>
+    <entry key="icon" private="true">icon-remove-5</entry>
     
     <!-- The description that appears in the gadget chooser. -->
-    <entry key="description" private="true">What my gadget does.</entry>
+    <entry key="description" private="true">Unpublishes files from the production server.</entry>
     
     <!-- The URL of a thumbnail image to appear in the gadget chooser. -->
-    <entry key="thumbnail" private="true">http://fakeimg.pl/96/</entry>
+    <entry key="thumbnail" private="true">http://jessgusclark.github.io/gadget-unpublished/unpublished-thumbnail.jpg</entry>
     
     <!-- Current supported types are "dashboard" and "sidebar". If you want your gadget to appear
          in both places, enter "dashboard, sidebar". -->
