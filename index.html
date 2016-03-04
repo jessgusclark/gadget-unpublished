@@ -24,6 +24,11 @@
 				text-align: center;
 			}
 			#prompt > p { font-size: 0.9em; }
+
+			.alert {
+				margin-top:-14px;
+				padding:5px 15px;
+			}
 		</style>
 
 		<!-- jQuery IS REQUIRED for gadgetlib.js to work. -->
@@ -107,8 +112,9 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 							type: "POST",
 							success: function(){
 							
-								$("#unpublish").addClass("disabled");
+								$("#unpublish").addClass("hidden");
 								$("#prompt").addClass("hidden");
+								$("#response").removeClass("hidden");
 
 							}
 
@@ -116,6 +122,11 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 						
 					}
 					
+					function ResetGadget(){
+						$("#unpublish").removeClass("hidden");
+						$("#prompt").addClass("hidden");
+						$("#response").addClass("hidden");
+					}
 
 				});
 			});
@@ -131,7 +142,11 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 				<button type="button" id="cancel" class="btn btn-default btn-sm">Cancel</button>
 				<button type="button" id="confirm" class="btn btn-danger btn-sm">Yes, Unpublish</button>
 			</div>
-
+			<div id="response" class="hidden">
+				<div class="alert alert-success">
+				    <strong>Success!</strong> The file has been unpublished.
+				</div>
+			</div>
 		</div>
 		<!--
 The following hidden div is only needed if you'll be editing your gadget in
