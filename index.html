@@ -55,6 +55,9 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 
                 If you don't need the config data, you don't need to call gadget.fetch().
             */
+
+            	var currentPage;
+
 				gadget.ready().then(gadget.fetch).then(function () {
 
 					var apihost = gadget.get('apihost');
@@ -97,7 +100,7 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 					
 					
 					function DeleteFile(data){
-						
+
 						var sendData = {
 							"authorization_token" : token, 
 							"remote": true, 
@@ -116,20 +119,41 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 								$("#prompt").addClass("hidden");
 								$("#response").removeClass("hidden");
 
+								currentPage = data.info.staging_path;
+
 							}
 
 						});
 						
 					}
 					
-					function ResetGadget(){
-						$("#unpublish").removeClass("hidden");
-						$("#prompt").addClass("hidden");
-						$("#response").addClass("hidden");
-					}
-
 				});
+
+				$(gadget).on({
+		            'view_changed': function (evt) {
+		                
+		                gadget.oucGetCurrentFileInfo().then(function(data){
+		                	if (currentPage != data.stagingPath){
+		                		resetGadget(data.id);
+		                	}
+		                });
+		            }
+		        });
+
+		        function resetGadget(path){
+					console.log("Reseting Gadget: " + path);
+
+					currentPage = path;
+
+					$("#unpublish").removeClass("hidden");
+					$("#prompt").addClass("hidden");
+					$("#response").addClass("hidden");
+				}
+
+
 			});
+
+			
 
 		</script>
 	</head>
