@@ -62,11 +62,7 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 
 					var apihost = gadget.get('apihost');
 					var token = gadget.get('token');
-					var user = gadget.get('user');
 					var site = gadget.get('site');
-
-					var data = {"authorization_token" : token};
-					var url = "https://a.cms.omniupdate.com/users/list";
 					
 					
 					$("#unpublish").click(function(){
@@ -141,7 +137,6 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 		        });
 
 		        function resetGadget(path){
-					console.log("Reseting Gadget: " + path);
 
 					currentPage = path;
 
