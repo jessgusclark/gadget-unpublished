@@ -24,6 +24,11 @@
 				text-align: center;
 			}
 			#prompt > p { font-size: 0.9em; }
+
+			.alert {
+				margin-top:-14px;
+				padding:5px 15px;
+			}
 		</style>
 
 		<!-- jQuery IS REQUIRED for gadgetlib.js to work. -->
@@ -50,15 +55,14 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 
                 If you don't need the config data, you don't need to call gadget.fetch().
             */
+
+            	var currentPage;
+
 				gadget.ready().then(gadget.fetch).then(function () {
 
 					var apihost = gadget.get('apihost');
 					var token = gadget.get('token');
-					var user = gadget.get('user');
 					var site = gadget.get('site');
-
-					var data = {"authorization_token" : token};
-					var url = "https://a.cms.omniupdate.com/users/list";
 					
 					
 					$("#unpublish").click(function(){
@@ -73,13 +77,12 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 					$("#confirm").click(function(){
 
 						gadget.oucGetCurrentFileInfo().then(function(data){
-
-							var stagingPath = data.stagingPath;
 							
-							var fileInfo = {"authorization_token" : token, "site" : site, "path" : data.stagingPath}
-							
-							
-							
+							var fileInfo = {
+								"authorization_token" : token, 
+								"site" : site, 
+								"path" : data.stagingPath
+							}
 							
 							$.ajax({
 								dataType: "json",
@@ -93,8 +96,13 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 					
 					
 					function DeleteFile(data){
-						
-						var sendData = {"authorization_token" : token, "remote": true, "site": gadget.get('site'), "path" : data.info.remote_path }
+
+						var sendData = {
+							"authorization_token" : token, 
+							"remote": true, 
+							"site": gadget.get('site'), 
+							"path" : data.info.remote_path
+						}
 						
 						$.ajax({
 							dataType: "json",
@@ -103,8 +111,11 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 							type: "POST",
 							success: function(){
 							
-								$("#unpublish").addClass("disabled");
+								$("#unpublish").addClass("hidden");
 								$("#prompt").addClass("hidden");
+								$("#response").removeClass("hidden");
+
+								currentPage = data.info.staging_path;
 
 							}
 
@@ -112,9 +123,32 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 						
 					}
 					
-
 				});
+
+				$(gadget).on({
+		            'view_changed': function (evt) {
+		                
+		                gadget.oucGetCurrentFileInfo().then(function(data){
+		                	if (currentPage != data.stagingPath){
+		                		resetGadget(data.id);
+		                	}
+		                });
+		            }
+		        });
+
+		        function resetGadget(path){
+
+					currentPage = path;
+
+					$("#unpublish").removeClass("hidden");
+					$("#prompt").addClass("hidden");
+					$("#response").addClass("hidden");
+				}
+
+
 			});
+
+			
 
 		</script>
 	</head>
@@ -127,7 +161,11 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 				<button type="button" id="cancel" class="btn btn-default btn-sm">Cancel</button>
 				<button type="button" id="confirm" class="btn btn-danger btn-sm">Yes, Unpublish</button>
 			</div>
-
+			<div id="response" class="hidden">
+				<div class="alert alert-success">
+				    <strong>Success!</strong> The file has been unpublished.
+				</div>
+			</div>
 		</div>
 		<!--
 The following hidden div is only needed if you'll be editing your gadget in
