@@ -73,13 +73,12 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 					$("#confirm").click(function(){
 
 						gadget.oucGetCurrentFileInfo().then(function(data){
-
-							var stagingPath = data.stagingPath;
 							
-							var fileInfo = {"authorization_token" : token, "site" : site, "path" : data.stagingPath}
-							
-							
-							
+							var fileInfo = {
+								"authorization_token" : token, 
+								"site" : site, 
+								"path" : data.stagingPath
+							}
 							
 							$.ajax({
 								dataType: "json",
@@ -94,7 +93,12 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 					
 					function DeleteFile(data){
 						
-						var sendData = {"authorization_token" : token, "remote": true, "site": gadget.get('site'), "path" : data.info.remote_path }
+						var sendData = {
+							"authorization_token" : token, 
+							"remote": true, 
+							"site": gadget.get('site'), 
+							"path" : data.info.remote_path
+						}
 						
 						$.ajax({
 							dataType: "json",
