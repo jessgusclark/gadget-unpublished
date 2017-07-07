@@ -1,6 +1,8 @@
 # gadget-unpublished
 
-A Gadget for OMNI Update that will unpublish a file from the production server but leave it on the staging server. 
+A Gadget for OMNI Update that will unpublish a file from the production server but leave it on the staging server. It also provides a link to view the production version of the page.
+
+![Preview of the Unpublished Gadget](docs/unpublished-demo.jpg)
 
 ## Installing in OmniUpdate
 
