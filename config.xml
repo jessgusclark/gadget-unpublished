@@ -31,7 +31,7 @@
     <entry key="columns" private="true">1</entry>
     
     <!-- For sidebar gadgets only. Determines the initial height of the gadget in pixels. -->
-    <entry key="initial_height" private="true">80</entry>
+    <entry key="initial_height" private="true">100</entry>
     
 </config>
 
