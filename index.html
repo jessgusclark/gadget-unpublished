@@ -9,7 +9,7 @@
 
 		<style type="text/css">
 			body {
-				margin: 20px 10px;
+				margin: 10px 10px;
 				background-color: transparent;
 			}
 			#prompt {
@@ -29,6 +29,8 @@
 				margin-top:-14px;
 				padding:5px 15px;
 			}
+
+			#viewlive {margin-top:5px;}
 		</style>
 
 		<!-- jQuery IS REQUIRED for gadgetlib.js to work. -->
@@ -70,6 +72,23 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 						$('#prompt').removeClass('hidden');
 					});
 					
+					$("#viewlive").click(function(){
+						gadget.oucGetCurrentFileInfo().then(function(data){
+							var fileInfo = {
+								"authorization_token" : token, 
+								"site" : site, 
+								"path" : data.stagingPath
+							}
+							
+							$.ajax({
+								dataType: "json",
+								url: apihost + "/files/info",
+								data: fileInfo,
+								success: OpenLive
+							});
+						});
+					});
+
 					$('#cancel').click(function(e){
 						$('#prompt').addClass('hidden');
 					});
@@ -122,6 +141,10 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 						});
 						
 					}
+
+					function OpenLive(data){
+						window.open(data.info.http_path, '_blank');
+					}
 					
 				});
 
@@ -166,6 +189,8 @@ gadgetlib.js is a library of basic functions that gadgets can use. It creates a 
 				    <strong>Success!</strong> The file has been unpublished.
 				</div>
 			</div>
+
+			<a id="viewlive" role="button" class="btn btn-info" style="width:100%">View Live</a>
 		</div>
 		<!--
 The following hidden div is only needed if you'll be editing your gadget in
